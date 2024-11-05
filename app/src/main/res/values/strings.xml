@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AppNovooo</string>
+    <string name="aplicativo_lista_vip_curso_android">Aplicativo Lista VIP Curso Android</string>
+    <string name="telefone_de_contato">Telefone de Contato</string>
+    <string name="primeiro_nome">Primeiro Nome</string>
+    <string name="nome_do_curso_desejado">Nome do Curso Desejado</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="limpar">Limpar</string>
+    <string name="salvar">Salvar</string>
+    <string name="finalizar">Finalizar</string>
+</resources>
