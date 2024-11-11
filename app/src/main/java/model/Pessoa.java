@@ -51,11 +51,11 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" +
+        return
                 "Primeiro nome: " + nome + '\'' +
-                ", Sobrenome:" + sobrenome + '\'' +
-                ", Curso:" + curso +
-                ", Telefone:" + telefone + '\'' +
+                ", Sobrenome: " + sobrenome + '\'' +
+                ", Curso: " + curso.getNomeCurso()+ '\''+
+                ", Telefone: " + telefone + '\'' +
                 '}';
     }
 }
