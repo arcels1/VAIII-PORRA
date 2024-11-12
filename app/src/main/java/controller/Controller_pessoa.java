@@ -21,6 +21,7 @@ public class Controller_pessoa {
         curso.setText("Desenvolvimento de sistemas");
         telefone.setText("99989-7798");
         Log.d("MVC CONTROLLER","Controller iniciado com sucesso");
+        int teste=0;
     }
 
     public void salve(EditText nome, EditText sobrenome, EditText curso, EditText telefone, Context contexto){
