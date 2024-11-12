@@ -2,6 +2,7 @@ package com.example.appnovooo.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,11 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         controller= new Controller_pessoa();
-        listeners();
         onClickListeners();
-
-
-
 
         //inicio setar
 
@@ -44,11 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-public void onClickListeners(){
-       limpar.setOnClickListener(Controller_pessoa.limpe(nome,sobrenome,curso,telefone));
-       finalizar.setOnClickListener(evt -> controller.finalize(contexto));
-       salvar.setOnClickListener(evt -> controller.salve(nome,sobrenome,curso,telefone,contexto));
-    }
+
 
 
 
@@ -62,9 +55,21 @@ public void onClickListeners(){
         finalizar = findViewById(R.id.finalizar);
         salvar = findViewById(R.id.salvar);
 
+    }
+    public void onClickListeners(){
 
+        listeners();
+        limpar.setOnClickListener(evt ->controller.limpe(nome,sobrenome,curso,telefone));
+        finalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.finalize(contexto);
+                finish();
+            }
+        });
 
-
+        salvar.setOnClickListener(evt -> controller.salve(nome,sobrenome,curso,telefone,contexto));
+        contexto = (Context) salvar.getContext();
     }
 
 

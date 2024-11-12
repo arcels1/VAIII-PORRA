@@ -1,9 +1,7 @@
 package controller;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -53,14 +51,15 @@ public class Controller_pessoa {
             Toast.makeText(contexto, (String)listaSave.get(i).toString(), Toast.LENGTH_SHORT).show();
 
         }
+
     }
 
-    @SuppressLint("WrongViewCast")
-    public static View.OnClickListener limpe(EditText nome, EditText sobrenome, EditText curso, EditText telefone){
+
+    public void limpe(EditText nome, EditText sobrenome, EditText curso, EditText telefone){
         nome.setText("");
         sobrenome.setText("");
         curso.setText("");
         telefone.setText("");
-        return null;
+
     }
 }
