@@ -30,22 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         controller= new Controller_pessoa();
         onClickListeners();
-
-        //inicio setar
-
         controller.iniciar(nome,sobrenome,curso,telefone,contexto);
 
-
-
-
     }
-
-
-
-
-
-
-
     public void listeners(){
         nome =(EditText) findViewById(R.id.primeironome);
         sobrenome =(EditText) findViewById(R.id.sobrenome);
@@ -56,8 +43,30 @@ public class MainActivity extends AppCompatActivity {
         salvar = findViewById(R.id.salvar);
 
     }
-    public void onClickListeners(){
 
+    public boolean error(){
+        String Testnome = nome.getText().toString();
+        String Testsobrenome = sobrenome.getText().toString();
+        String Testcurso = curso.getText().toString();
+        String Testtelefone = telefone.getText().toString();
+        boolean vazio = false;
+        if ( Testnome.isEmpty()){
+            vazio=true;
+            nome.setError("Campo obrigatório");
+        } else if (Testsobrenome.isEmpty()) {
+            vazio=true;
+            sobrenome.setError("Campo obrigatório");
+        } else if (Testcurso.isEmpty()) {
+            vazio=true;
+            curso.setError("Campo obrigatório");
+        } else if (Testtelefone.isEmpty()) {
+            vazio=true;
+            telefone.setError("Campo obrigatório");
+        }
+        return vazio;
+        //salva
+    }
+    public void onClickListeners(){
         listeners();
         limpar.setOnClickListener(evt ->controller.limpe(nome,sobrenome,curso,telefone));
         finalizar.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +76,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        salvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(error() == false){
+                    controller.salve(nome,sobrenome,curso,telefone,contexto);
+                }
 
-        salvar.setOnClickListener(evt -> controller.salve(nome,sobrenome,curso,telefone,contexto));
+            }
+        });
         contexto = (Context) salvar.getContext();
     }
+
 
 
 }
