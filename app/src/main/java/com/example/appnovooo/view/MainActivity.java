@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         limpar = findViewById(R.id.limpar);
         finalizar = findViewById(R.id.finalizar);
         salvar = findViewById(R.id.salvar);
+        int teste = 0;
 
     }
 
