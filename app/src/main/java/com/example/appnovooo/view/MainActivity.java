@@ -1,6 +1,7 @@
 package com.example.appnovooo.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,18 @@ public class MainActivity extends AppCompatActivity {
     Button salvar;
     Context contexto;
     Controller_pessoa controller;
+    SharedPreferences listaVIP;
+    public static final String NOME_PREFERENCES = "pref_listavip";
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listaVIP = getSharedPreferences("user_preferences",MODE_PRIVATE);
         controller= new Controller_pessoa();
         onClickListeners();
         controller.iniciar(nome,sobrenome,curso,telefone,contexto);
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(error() == false){
-                    controller.salve(nome,sobrenome,curso,telefone,contexto);
+                    controller.salve(nome,sobrenome,curso,telefone,contexto,listaVIP);
                 }
 
             }
