@@ -28,45 +28,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        controller= new Controller_pessoa();
+        controller = new Controller_pessoa();
         onClickListeners();
-        controller.iniciar(nome,sobrenome,curso,telefone,contexto);
+        controller.iniciar(nome, sobrenome, curso, telefone, contexto);
 
     }
-    public void listeners(){
-        nome =(EditText) findViewById(R.id.primeironome);
-        sobrenome =(EditText) findViewById(R.id.sobrenome);
-        curso =(EditText) findViewById(R.id.curso);
-        telefone =(EditText) findViewById(R.id.telefone);
+
+    public void listeners() {
+        nome = (EditText) findViewById(R.id.primeironome);
+        sobrenome = (EditText) findViewById(R.id.sobrenome);
+        curso = (EditText) findViewById(R.id.curso);
+        telefone = (EditText) findViewById(R.id.telefone);
         limpar = findViewById(R.id.limpar);
         finalizar = findViewById(R.id.finalizar);
         salvar = findViewById(R.id.salvar);
 
     }
-    public boolean error(){
+
+    public boolean error() {
         String Testnome = nome.getText().toString();
         String Testsobrenome = sobrenome.getText().toString();
         String Testcurso = curso.getText().toString();
         String Testtelefone = telefone.getText().toString();
         boolean vazio = false;
-        if ( Testnome.isEmpty()){
-            vazio=true;
+        if (Testnome.isEmpty()) {
+            vazio = true;
             nome.setError("Campo obrigatório");
         } else if (Testsobrenome.isEmpty()) {
-            vazio=true;
+            vazio = true;
             sobrenome.setError("Campo obrigatório");
         } else if (Testcurso.isEmpty()) {
-            vazio=true;
+            vazio = true;
             curso.setError("Campo obrigatório");
         } else if (Testtelefone.isEmpty()) {
-            vazio=true;
+            vazio = true;
             telefone.setError("Campo obrigatório");
         }
         return vazio;
     }
-    public void onClickListeners(){
+
+    public void onClickListeners() {
         listeners();
-        limpar.setOnClickListener(evt ->controller.limpe(nome,sobrenome,curso,telefone));
+        limpar.setOnClickListener(evt -> controller.limpe(nome, sobrenome, curso, telefone));
         finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(error() == false){
-                    controller.salve(nome,sobrenome,curso,telefone,contexto);
+                if (error() == false) {
+                    controller.salve(nome, sobrenome, curso, telefone, contexto);
                 }
             }
         });
