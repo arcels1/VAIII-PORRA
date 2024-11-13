@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnovooo.R;
 
 import controller.Controller_pessoa;
+import model.Curso;
+import model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
     EditText nome;
@@ -26,20 +28,21 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences listaVIP;
     public static final String NOME_PREFERENCES = "pref_listavip";
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaVIP = getSharedPreferences("user_preferences",MODE_PRIVATE);
+        listaVIP = getSharedPreferences(NOME_PREFERENCES,MODE_PRIVATE);
         controller= new Controller_pessoa();
         onClickListeners();
-        controller.iniciar(nome,sobrenome,curso,telefone,contexto);
+        controller.iniciar(nome,sobrenome,curso,telefone);
 
     }
+
+
+        SharedPreferences.Editor editor = listaVIP.edit();
+
     public void listeners(){
         nome =(EditText) findViewById(R.id.primeironome);
         sobrenome =(EditText) findViewById(R.id.sobrenome);
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         limpar = findViewById(R.id.limpar);
         finalizar = findViewById(R.id.finalizar);
         salvar = findViewById(R.id.salvar);
-        int teste = 0;
 
     }
 
@@ -87,8 +89,10 @@ public class MainActivity extends AppCompatActivity {
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(error() == false){
-                    controller.salve(nome,sobrenome,curso,telefone,contexto,listaVIP);
+                if(!error()){
+                    Pessoa pessoa =new Pessoa(nome.getText().toString(),sobrenome.getText().toString(),new Curso(curso.getText().toString()),telefone.getText().toString());
+                    controller.salve(pessoa,editor,contexto);
+
                 }
 
             }
