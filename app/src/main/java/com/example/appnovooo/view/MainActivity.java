@@ -41,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
         limpar = findViewById(R.id.limpar);
         finalizar = findViewById(R.id.finalizar);
         salvar = findViewById(R.id.salvar);
-        int teste = 0;
 
     }
-
     public boolean error(){
         String Testnome = nome.getText().toString();
         String Testsobrenome = sobrenome.getText().toString();
@@ -65,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             telefone.setError("Campo obrigatório");
         }
         return vazio;
-        //salva
     }
     public void onClickListeners(){
         listeners();
@@ -83,13 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 if(error() == false){
                     controller.salve(nome,sobrenome,curso,telefone,contexto);
                 }
-
             }
         });
         contexto = (Context) salvar.getContext();
     }
-
-
-
 }
 
