@@ -26,22 +26,28 @@ public class MainActivity extends AppCompatActivity {
     Context contexto;
     Controller_pessoa controller;
     SharedPreferences listaVIP;
+
     public static final String NOME_PREFERENCES = "pref_listavip";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        listaVIP = getSharedPreferences(NOME_PREFERENCES,MODE_PRIVATE);
-        controller= new Controller_pessoa();
+        setContentView(R.layout.activity_main);
         onClickListeners();
+        listaVIP = getSharedPreferences(NOME_PREFERENCES,MODE_PRIVATE);
+        SharedPreferences.Editor editor = listaVIP.edit();
+        listeners();
+
+        contexto = (Context) salvar.getContext();
+
+        controller= new Controller_pessoa(editor,contexto,listaVIP);
         controller.iniciar(nome,sobrenome,curso,telefone);
 
     }
 
 
-        SharedPreferences.Editor editor = listaVIP.edit();
+
 
     public void listeners(){
         nome =(EditText) findViewById(R.id.primeironome);
@@ -82,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller.finalize(contexto);
+                controller.finalize();
                 finish();
             }
         });
@@ -91,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!error()){
                     Pessoa pessoa =new Pessoa(nome.getText().toString(),sobrenome.getText().toString(),new Curso(curso.getText().toString()),telefone.getText().toString());
-                    controller.salve(pessoa,editor,contexto);
+                    controller.salve(pessoa);
 
                 }
 
             }
         });
-        contexto = (Context) salvar.getContext();
+
     }
 
 

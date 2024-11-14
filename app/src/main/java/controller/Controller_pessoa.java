@@ -7,37 +7,50 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import model.Pessoa;
 
 public class Controller_pessoa {
-    private ArrayList<Pessoa> listaSave = new ArrayList<Pessoa>();
+    SharedPreferences.Editor editor;
+    Context contexto;
+    SharedPreferences listaVIP;
 
-
+    public Controller_pessoa(SharedPreferences.Editor editor, Context contexto, SharedPreferences listaVIP) {
+        this.editor = editor;
+        this.contexto = contexto;
+        this.listaVIP = listaVIP;
+    }
 
     //testar inicio
     @SuppressLint("SetTextI18n")
-    public void iniciar(EditText nome, EditText sobrenome, EditText curso, EditText telefone){
-        nome.setText("Vinicius");
-        sobrenome.setText("Alves");
-        curso.setText("Desenvolvimento de sistemas");
-        telefone.setText("99989-7798");
+    public void iniciar(EditText nome,EditText sobrenome, EditText curso, EditText telefone){
+        if(listaVIP.contains("Primeiro nome")){
+           nome.setText(listaVIP.getString("Primeiro nome",""));
+        }
+        if(listaVIP.contains("Sobrenome")){
+          sobrenome.setText(listaVIP.getString("Sobrenome",""));
+        }
+        if(listaVIP.contains("Curso")){
+          curso.setText(listaVIP.getString("Curso",""));
+        }
+        if(listaVIP.contains("Telefone")){
+          telefone.setText(listaVIP.getString("Telefone",""));
+        }
         Log.d("MVC CONTROLLER","Controller iniciado com sucesso");
     }
 
-    public void salve(Pessoa pessoa, SharedPreferences.Editor editor,Context contexto) {
-            listaSave.add(pessoa);
-            adicionarPreferencias(editor,pessoa);
-            Log.i("MVC CONTROLLER","Pessoa Salva ["+listaSave.size()+"]"+pessoa.toString());
+    public void salve(Pessoa pessoa) {
+            adicionarPreferencias(pessoa);
+            Log.i("MVC CONTROLLER","Pessoa Salva "+pessoa.toString());
             Toast.makeText(contexto, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
         }
 
-    public void finalize(Context contexto){
-        for(int i=0; i< listaSave.size();i++){
-            Toast.makeText(contexto, (String)listaSave.get(i).toString(), Toast.LENGTH_SHORT).show();
+    public void finalize(){
+            Toast.makeText(contexto,listaVIP.getString("Primeiro nome","")+" \n"
+                    +listaVIP.getString("Sobrenome","")+" \n"
+                    +listaVIP.getString("Curso","")+" \n"
+                    +listaVIP.getString("Telefone","")+" \n",Toast.LENGTH_SHORT).show();
         }
-    }
+
 
     public void limpe(EditText nome, EditText sobrenome, EditText curso, EditText telefone){
         nome.setText("");
@@ -47,7 +60,7 @@ public class Controller_pessoa {
 
     }
 
-    private void adicionarPreferencias(SharedPreferences.Editor editor, Pessoa pessoa){
+    private void adicionarPreferencias( Pessoa pessoa){
         editor.putString("Primeiro nome", pessoa.getNome());
         editor.putString("Sobrenome", pessoa.getSobrenome());
         editor.putString("Curso", pessoa.getCurso().getNomeCurso());
